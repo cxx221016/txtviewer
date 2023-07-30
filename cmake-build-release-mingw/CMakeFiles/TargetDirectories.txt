@@ -1,5 +1,0 @@
-D:/MY_CODE/Clion/txtviewer/cmake-build-release-mingw/CMakeFiles/txtviewer.dir
-D:/MY_CODE/Clion/txtviewer/cmake-build-release-mingw/CMakeFiles/edit_cache.dir
-D:/MY_CODE/Clion/txtviewer/cmake-build-release-mingw/CMakeFiles/rebuild_cache.dir
-D:/MY_CODE/Clion/txtviewer/cmake-build-release-mingw/CMakeFiles/txtviewer_autogen_timestamp_deps.dir
-D:/MY_CODE/Clion/txtviewer/cmake-build-release-mingw/CMakeFiles/txtviewer_autogen.dir
