@@ -34,3 +34,40 @@ bool SqlManager::close() {
 std::shared_ptr<QSqlQuery> SqlManager::instance() {
     return query;
 }
+
+bool SqlManager::addbook(const QString& bookname,const QString& location,const QString& type) {
+    if (query->exec(QString("insert into bookshelf values('%1','%2','%3')").arg(bookname).arg(location).arg(type))) {
+        return true;
+    } else {
+        qDebug() << "Error: Fail to insert into bookshelf." << query->lastError();
+        return false;
+    }
+}
+
+bool SqlManager::deletebook(const QString& bookname) {
+    if (query->exec(QString("delete from bookshelf where bookname='%1'").arg(bookname))) {
+        return true;
+    } else {
+        qDebug() << "Error: Fail to delete from bookshelf." << query->lastError();
+        return false;
+    }
+}
+
+QStandardItemModel* SqlManager::getbookshelf() {
+    auto model = new QStandardItemModel();
+    model->setHorizontalHeaderItem(0, new QStandardItem(QObject::tr("书名")));
+    query->exec("select * from bookshelf");
+    while (query->next()) {
+        model->appendRow(new QStandardItem(query->value(0).toString()));
+    }
+    return model;
+}
+
+bool SqlManager::updatalastidx(const QString& bookname,int lastidx) {
+    if (query->exec(QString("update txtviewer set lastidx=%1 where bookname='%2'").arg(lastidx).arg(bookname))) {
+        return true;
+    } else {
+        qDebug() << "Error: Fail to update bookshelf." << query->lastError();
+        return false;
+    }
+}

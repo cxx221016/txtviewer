@@ -125,6 +125,7 @@ void bookviewer::showbyname(const QString& chaptername) {
     {
         splitbook();
     }
+    SqlManager::updatalastidx(bookname,indexmap[chaptername]);
     ui->bookBrowser->setText(booksplit[indexmap[chaptername]].second);
     ui->bookBrowser->setAlignment(Qt::AlignCenter);
     //ui->bookBrowser->show();
@@ -182,6 +183,11 @@ void bookviewer::showchapter()
     {
         splitbook();
     }
+    SqlManager::instance()->exec("select * from txtviewer where bookname='"+bookname+"'");
+    SqlManager::instance()->next();
+    int lastidx=SqlManager::instance()->value(3).toInt();
+    //qDebug()<<"lastidx: "<<lastidx;
+    ui->chapterlist->setCurrentRow(lastidx);
     ui->chapterlist->show();
 }
 

@@ -11,6 +11,7 @@
 #include<QtSql/QSqlError>
 #include<QtSql/QSqlDriver>
 #include<memory>
+#include<QStandardItemModel>
 
 
 class SqlManager {
@@ -20,6 +21,10 @@ public:
     static bool init();
     static bool close();
     static std::shared_ptr<QSqlQuery> instance();
+    static QStandardItemModel* getbookshelf();
+    static bool addbook(const QString& bookname,const QString& location,const QString& type);
+    static bool deletebook(const QString& bookname);
+    static bool updatalastidx(const QString& bookname,int lastidx);
 };
 
 #endif //TXTVIEWER_SQLMANAGER_H
