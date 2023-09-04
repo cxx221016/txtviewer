@@ -8,6 +8,13 @@
 #include "ui_bookshelf.h"
 #include "Sqlmanager.h"
 #include "bookviewer.h"
+#include "util.h"
+#include<QFileDialog>
+#include<QMessageBox>
+#include<QInputDialog>
+#include<QDebug>
+#include<QComboBox>
+
 
 
 bookshelf::bookshelf(QWidget *parent) :
@@ -26,6 +33,7 @@ bookshelf::bookshelf(QWidget *parent) :
     connect(ui->deleteButton, &QPushButton::clicked, this, &bookshelf::deletebook);
     connect(ui->openButton, &QPushButton::clicked, this, &bookshelf::openbook);
     connect(ui->booktable, &QTableView::doubleClicked, this, &bookshelf::openbook);
+    connect(ui->aboutAction, &QAction::triggered, this, &bookshelf::about);
     updatebooktable();
 }
 
@@ -44,13 +52,25 @@ void bookshelf::updatebooktable() {
 }
 
 void bookshelf::importbook() {
-    QString fileordir = QInputDialog::getText(this, "导入书籍", "请输入文件或文件夹");
-    if (fileordir.isEmpty()) {
-        return;
-    }
+//    QString fileordir = QInputDialog::getText(this, "导入书籍", "请输入文件或文件夹");
+//    if (fileordir.isEmpty()) {
+//        return;
+//    }
+    QDialog* dialog=new QDialog(this);
+    dialog->setWindowTitle("导入书籍");
+    dialog->resize(300,100);
+    QComboBox* combobox=new QComboBox(dialog);
+    combobox->addItem("文件");
+    combobox->addItem("文件夹");
+    combobox->move(100,20);
+    QPushButton* okbutton=new QPushButton("确定",dialog);
+    okbutton->move(100,60);
+    connect(okbutton,&QPushButton::clicked,dialog,&QDialog::accept);
+    QString fileordir=dialog->exec()==QDialog::Accepted?combobox->currentText():"";
+
     if(fileordir=="文件")
     {
-        QString filename = QFileDialog::getOpenFileName(this, "选择文件", ".", "TXT文件(*.txt)");
+        QString filename = QFileDialog::getOpenFileName(this, "选择文件", "D:\\Download", "TXT文件(*.txt)");
         if (filename.isEmpty()) {
             return;
         }
@@ -63,7 +83,7 @@ void bookshelf::importbook() {
     }
     else if(fileordir=="文件夹")
     {
-        QString dirname = QFileDialog::getExistingDirectory(this, "选择文件夹", ".");
+        QString dirname = QFileDialog::getExistingDirectory(this, "选择文件夹", "D:\\Download");
         if (dirname.isEmpty()) {
             return;
         }
@@ -110,5 +130,18 @@ void bookshelf::openbook() {
     QString type=SqlManager::instance()->value(2).toString();
     emit openbooksignal(bookname,location,type);
     //this->close();
+}
+
+void bookshelf::about() {
+    QMessageBox::about(this, "关于",
+                       "Txtviewer\n"
+                       "作者：崔向向\n"
+                       "学号：521021911118\n"
+                       "班级：F2103302\n"
+                       "学院：电子信息与电气工程学院\n"
+                       "学校：上海交通大学\n"
+                       "Github: https://cxx221016.github.io/\n"
+                       "版本：1.0.0\n"
+                       "编译时间："+static_cast<QString>(__DATE__)+"\n");
 }
 

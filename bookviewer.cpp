@@ -7,6 +7,11 @@
 #include "bookviewer.h"
 #include "ui_bookviewer.h"
 #include "util.h"
+#include"Sqlmanager.h"
+#include<QFile>
+#include<QDir>
+#include<algorithm>
+#include<QMessageBox>
 
 
 bookviewer::bookviewer(const QString& bookname,const QString& location,const QString& type,setup* outsp,QWidget *parent) :

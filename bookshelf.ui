@@ -80,6 +80,7 @@
     <property name="title">
      <string>帮助</string>
     </property>
+    <addaction name="aboutAction"/>
    </widget>
    <addaction name="FileMenu"/>
    <addaction name="EditMenu"/>
@@ -90,6 +91,11 @@
   <action name="ImportAction">
    <property name="text">
     <string>导入</string>
+   </property>
+  </action>
+  <action name="aboutAction">
+   <property name="text">
+    <string>关于</string>
    </property>
   </action>
  </widget>

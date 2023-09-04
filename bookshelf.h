@@ -7,10 +7,6 @@
 
 #include <QMainWindow>
 #include<QStandardItemModel>
-#include<QFileDialog>
-#include<QMessageBox>
-#include<QInputDialog>
-#include"util.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class bookshelf; }
@@ -35,6 +31,7 @@ private slots:
     void importbook();
     void deletebook();
     void openbook();
+    void about();
 signals:
     void openbooksignal(QString bookname,QString location,QString type);
 };

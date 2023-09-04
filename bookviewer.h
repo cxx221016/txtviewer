@@ -8,14 +8,10 @@
 #include <QMainWindow>
 #include <QMap>
 #include<QString>
-#include<QFile>
-#include<QDir>
-#include<algorithm>
-#include<QMessageBox>
 #include<unordered_map>
 #include<QListWidgetItem>
 #include"setup.h"
-#include"Sqlmanager.h"
+
 
 
 QT_BEGIN_NAMESPACE
